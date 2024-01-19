@@ -98,12 +98,12 @@ async find(req, res) {
   async search(req, res) {
     const { name } = req.params;
   
-    const employees = await Employee.find(name);
+    const employees = await Employee.search(name);
   
     if (employees) {
         const data = {
             message: "Mencari nama karyawan",
-            data: Employee,
+            data: employees,
         };
   
         res.status(200).json(data);
@@ -116,6 +116,61 @@ async find(req, res) {
         res.status(404).json(data);
     }
     }
+
+    async find(req, res) {
+  const { id } = req.params;
+
+  const employees = await Employee.find(id);
+
+  if (employees) {
+      const data = {
+          message: "Menampilkan detail data karyawan",
+          data: Employee,
+      };
+
+      res.status(200).json(data);
+  }
+  else {
+      const data = {
+          message: "Data tidak ada",
+      };
+
+      res.status(404).json(data);
+  }
+  }
+
+  async active(req, res) {
+    const employees = await Employee.status('active');
+
+    const data = {
+        message: "Menampilkan data Karyawan yang active",
+        data: employees
+    };
+
+    res.status(200).json(data);
+  }
+
+  async inactive(req, res) {
+    const employees = await Employee.status('inactive');
+
+    const data = {
+        message: "Menampilkan data Karyawan yang inactive",
+        data: employees
+    };
+
+    res.status(200).json(data);
+  }
+
+  async terminated(req, res) {
+    const employees = await Employee.status('terminated');
+
+    const data = {
+        message: "Menampilkan data Karyawan yang terminated",
+        data: employees
+    };
+
+    res.status(200).json(data);
+}
 }
 
 // membuat object EmployeeController

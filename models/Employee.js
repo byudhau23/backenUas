@@ -66,6 +66,26 @@ static async update(id, data) {
         });
     });
   }
+
+  static search(name) {
+    // lakukan promise, select by id
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM employees WHERE name = ?`;
+        db.query(sql, name, (err, results) => {
+            resolve(results[0]);
+        });
+    });
+  }
+
+  static status(stat) {
+    return new Promise((resolve, reject) => {
+        // lakukan query ke db untuk ambil data
+        const sql = "SELECT * FROM employees WHERE status = ?";
+        db.query(sql, stat, (sql, results) => {
+            resolve(results);
+        });
+    });
+  }
 }
 
 
